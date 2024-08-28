@@ -134,35 +134,3 @@ pickle.dump(xgb, open("XGBoostClassifier.pickle.dat", "wb"))
 # Test the saved model
 loaded_model = pickle.load(open("XGBoostClassifier.pickle.dat", "rb"))
 print("Loaded model:", loaded_model)
-
-# Visualizations
-plt.figure(figsize=(15,15))
-data.hist(bins=50)
-plt.tight_layout()
-plt.savefig('data_distribution.png')
-
-plt.figure(figsize=(15,13))
-sns.heatmap(data.corr())
-plt.tight_layout()
-plt.savefig('correlation_heatmap.png')
-
-# Feature importance for Decision Tree
-plt.figure(figsize=(9,7))
-n_features = X_train.shape[1]
-plt.barh(range(n_features), tree.feature_importances_, align='center')
-plt.yticks(np.arange(n_features), X_train.columns)
-plt.xlabel("Feature importance")
-plt.ylabel("Feature")
-plt.tight_layout()
-plt.savefig('decision_tree_feature_importance.png')
-
-# Feature importance for Random Forest
-plt.figure(figsize=(9,7))
-plt.barh(range(n_features), forest.feature_importances_, align='center')
-plt.yticks(np.arange(n_features), X_train.columns)
-plt.xlabel("Feature importance")
-plt.ylabel("Feature")
-plt.tight_layout()
-plt.savefig('random_forest_feature_importance.png')
-
-print("Analysis complete. Check the current directory for output files and visualizations.")
