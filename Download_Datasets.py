@@ -44,7 +44,11 @@ def get_phishtank_data():
         print("Warning: The downloaded file is not in bz2 format.")
         print("First few bytes:", response.content[:20])
         print("Attempting to read as plain CSV...")
-        df = pd.read_csv(io.StringIO(response.text))
+        try:
+            df = pd.read_csv(io.StringIO(response.text), encoding="latin-1")  # Replace with "cp1252" if needed
+        except UnicodeDecodeError:
+            print("Failed to decode with latin-1. Trying default encoding...")
+            df = pd.read_csv(io.StringIO(response.text))
     
     if 'url' not in df.columns:
         print("'url' column not found. Using the first column as URL.")
